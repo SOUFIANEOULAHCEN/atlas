@@ -48,7 +48,7 @@
                                     <tbody>
                                         @forelse($reservations as $reservation)
                                         <tr>
-                                            <td>{{ $reservation->DateReservation->format('d/m/Y') }}</td>
+                                            <td>{{ \Carbon\Carbon::parse($reservation->DateReservation)->format('d/m/Y') }}</td>
                                             <td>{{ $reservation->Repas1 ? '✔' : '✖' }}</td>
                                             <td>{{ $reservation->Repas2 ? '✔' : '✖' }}</td>
                                             <td>{{ $reservation->Repas3 ? '✔' : '✖' }}</td>

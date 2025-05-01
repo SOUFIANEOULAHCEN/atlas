@@ -14,7 +14,7 @@
                     <div class="row">
                         <div class="col-md-4 text-center">
                             <img src="{{ asset(Auth::user()->photo ? 'storage/'.Auth::user()->photo : 'images/default-profile.png') }}"
-                                 class="img-thumbnail mb-3" width="150" alt="Profile Photo">
+                                 class="img-thumbnail mb-3" width="100" alt="Profile Photo">
                             <a href="{{ route('profile.edit') }}" class="btn btn-sm btn-primary">Edit Profile</a>
                         </div>
                         <div class="col-md-8">

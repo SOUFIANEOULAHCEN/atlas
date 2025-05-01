@@ -21,7 +21,7 @@
                         <div class="row mb-4">
                             <div class="col-md-3 text-center">
                                 <img src="{{ asset($user->photo ? 'storage/'.$user->photo : 'images/default-profile.png') }}"
-                                     class="img-thumbnail mb-3" width="150" alt="Profile Photo">
+                                     class="img-thumbnail mb-3" width="100" height="100" alt="Profile Photo">
                                 <div class="mb-3">
                                     <label for="photo" class="form-label">Changer la photo</label>
                                     <input type="file" class="form-control @error('photo') is-invalid @enderror"

@@ -18,7 +18,7 @@
                         <div class="row mb-4">
                             <div class="col-md-4 text-center">
                                 <img src="{{ asset(Auth::user()->photo ? 'storage/'.Auth::user()->photo : 'images/default-profile.png') }}"
-                                     class="img-thumbnail mb-3" width="150" alt="Profile Photo">
+                                     class="img-thumbnail mb-3" width="100" height="100" alt="Profile Photo">
                                 <input type="file" class="form-control @error('photo') is-invalid @enderror"
                                        id="photo" name="photo">
                                 @error('photo')
