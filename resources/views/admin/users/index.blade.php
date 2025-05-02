@@ -98,13 +98,38 @@
                 </div>
             </div>
 
-            <div class="d-flex justify-content-between align-items-center mt-4">
-                <div class="pagination-info">
-                    Affichage de {{ $users->firstItem() }} à {{ $users->lastItem() }} sur {{ $users->total() }} utilisateurs
+            <div class="d-flex flex-column flex-md-row justify-content-between align-items-center mt-4">
+                <div class="mb-2 mb-md-0">
+                    <p class="mb-0 text-muted">
+                        Affichage de <span class="fw-bold">{{ $users->firstItem() }}</span> à <span class="fw-bold">{{ $users->lastItem() }}</span>
+                        sur <span class="fw-bold">{{ $users->total() }}</span> utilisateurs
+                    </p>
                 </div>
-                <div>
-                    {{ $users->onEachSide(1)->links() }}
-                </div>
+
+                <nav aria-label="Page navigation">
+                    <ul class="pagination pagination-md mb-0">
+                        {{-- Previous Page Link --}}
+                        <li class="page-item {{ $users->onFirstPage() ? 'disabled' : '' }}">
+                            <a class="page-link" href="{{ $users->previousPageUrl() }}" aria-label="Previous">
+                                <span aria-hidden="true">&laquo;</span>
+                            </a>
+                        </li>
+
+                        {{-- Pagination Elements --}}
+                        @for ($i = 1; $i <= $users->lastPage(); $i++)
+                            <li class="page-item {{ $users->currentPage() == $i ? 'active' : '' }}">
+                                <a class="page-link" href="{{ $users->url($i) }}">{{ $i }}</a>
+                            </li>
+                        @endfor
+
+                        {{-- Next Page Link --}}
+                        <li class="page-item {{ !$users->hasMorePages() ? 'disabled' : '' }}">
+                            <a class="page-link" href="{{ $users->nextPageUrl() }}" aria-label="Next">
+                                <span aria-hidden="true">&raquo;</span>
+                            </a>
+                        </li>
+                    </ul>
+                </nav>
             </div>
         </div>
     </div>
@@ -147,90 +172,40 @@
     font-size: 0.875rem;
 }
 
-.pagination {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 0.5rem;
-    margin-top: 1rem;
-}
-
-.page-item {
-    list-style: none;
-}
-
-.page-link {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 40px;
-    height: 40px;
-    border-radius: 50%;
-    background-color: #fff;
-    color: #6c757d;
+.pagination .page-link {
+    color: var(--primary-color);
+    min-width: 40px;
+    text-align: center;
     border: 1px solid #dee2e6;
+    margin: 0 2px;
     transition: all 0.3s ease;
-    font-size: 0.9rem;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
-.page-link:hover {
+.pagination .page-link:hover {
+    background-color: rgba(var(--primary-color-rgb), 0.1);
+    color: var(--primary-color);
+}
+
+.pagination .page-item.active .page-link {
     background-color: var(--primary-color);
-    color: #fff;
-    transform: translateY(-2px);
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    border-color: var(--primary-color);
+    color: white;
 }
-
-.page-item.active .page-link {
-    background: linear-gradient(135deg, var(--primary-color), var(--primary-dark));
-    color: #fff;
-    font-weight: bold;
-    box-shadow: 0 4px 10px rgba(255, 215, 0, 0.4);
-}
-
-.page-item.disabled .page-link {
-    background-color: #f8f9fa;
+.pagination .page-item.disabled .page-link {
     color: #adb5bd;
-    cursor: not-allowed;
-    box-shadow: none;
+    pointer-events: none;
+    background-color: #f8f9fa;
 }
 
-.pagination-info {
-    font-size: 0.9rem;
-    color: #6c757d;
-    padding-left: 0.5rem;
+.pagination .page-link[aria-label="Previous"],
+.pagination .page-link[aria-label="Next"] {
+    padding: 0.375rem 0.75rem;
 }
 
-.page-item:first-child .page-link::before {
-    content: '«';
-    margin-right: 0.2rem;
-}
-
-.page-item:last-child .page-link::after {
-    content: '»';
-    margin-left: 0.2rem;
-}
-
-.page-link:hover {
-    background: var(--primary-color);
-    color: var(--text-dark);
+/* Style supplémentaire pour le survol */
+.pagination .page-item:not(.active):not(.disabled) .page-link:hover {
     transform: translateY(-2px);
-    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-}
-
-.page-item.active .page-link {
-    background: linear-gradient(135deg, var(--primary-color), var(--primary-dark));
-    color: var(--text-dark);
-    font-weight: 500;
-    box-shadow: 0 4px 10px rgba(255, 215, 0, 0.3);
-}
-
-.page-item.disabled .page-link {
-    background: #f8f9fa;
-    color: #6c757d;
-    cursor: not-allowed;
-    transform: none;
-    box-shadow: none;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
 
 .table tr:hover .btn {
