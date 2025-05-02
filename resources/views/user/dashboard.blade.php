@@ -13,6 +13,16 @@
                 <div class="card-body">
                     <div class="row">
                         <div class="col-md-3">
+                            <style>
+                                .list-group-item.active {
+                                    background-color: var(--primary-color); /* Couleur primaire Bootstrap */
+                                    border-color:  rgba(var(--primary-color-rgb), 0.5);
+                                    color: white;
+                                }
+                                .list-group-item:hover:not(.active) {
+                                    background-color: #f8f9fa; /* Couleur de survol */
+                                }
+                            </style>
                             <div class="list-group">
                                 <a href="{{ route('profile.show') }}" class="list-group-item list-group-item-action">Mon Profil</a>
                                 <a href="{{ route('reservations.index') }}" class="list-group-item list-group-item-action active">Réservations</a>
